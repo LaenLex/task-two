@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 dotenv.config();
 
 const routes = require('./routes');
@@ -8,6 +9,11 @@ const jwtAuth = require('./middlewares/auth');
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:3001',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use('/api', routes);
 app.use('/auth', authRoutes);
